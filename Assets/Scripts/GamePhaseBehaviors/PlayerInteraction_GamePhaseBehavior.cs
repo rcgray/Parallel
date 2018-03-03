@@ -146,6 +146,7 @@ public class PlayerInteraction_GamePhaseBehavior : GamePhaseBehavior {
 	public override void EndPhase()
 	{
 		playerInteraction_UI.CloseUI();
+        interactionPhase = InteractionPhases.ingame_default;
         LockFlowVisibility(-1);
     }
 
