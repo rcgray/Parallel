@@ -243,8 +243,11 @@ public class PlayerInteraction_GamePhaseBehavior : GamePhaseBehavior {
 		playerInteraction_UI.revealHintsButton.onClick.RemoveAllListeners();
 		playerInteraction_UI.revealHintsButton.onClick.AddListener( ()=> ToggleHintsVisibility() );
 
-/* Track Color Hover Setup */
-		for(int triggerIndex = 0; triggerIndex < playerInteraction_UI.rightPanelColors.Length; triggerIndex++)
+        playerInteraction_UI.revealHintsButtonOverlay.onClick.RemoveAllListeners();
+        playerInteraction_UI.revealHintsButtonOverlay.onClick.AddListener(() => ToggleHintsVisibility());
+
+        /* Track Color Hover Setup */
+        for (int triggerIndex = 0; triggerIndex < playerInteraction_UI.rightPanelColors.Length; triggerIndex++)
 		{
             playerInteraction_UI.rightPanelColors[triggerIndex].triggers.Clear();
             if ( GameManager.Instance.GetGridManager().IsCurrentThreadColor( triggerIndex ) )
@@ -794,9 +797,6 @@ public class PlayerInteraction_GamePhaseBehavior : GamePhaseBehavior {
                         // Display its hint UI
                         string obj_name = current_object.component.type;
                         TriggerHint(obj_name);
-                        // Testing to make sure the interaction worked, always displays Track Hint
-                        //HintConstructor h = playerInteraction_UI.hintButtons[0].hint;
-                        //TriggerHint(h.hintTitle, h.hintDescription, h.hintImage);
                     }
                 }
             break;
@@ -1163,12 +1163,14 @@ public class PlayerInteraction_GamePhaseBehavior : GamePhaseBehavior {
         {
             // Turn it off
             interactionPhase = InteractionPhases.ingame_default;
+            playerInteraction_UI.CloseHintUI();
             GameManager.Instance.tracker.CreateEventExt("ToggleHintsVisibility", (false).ToString());
         }
         else
         {
             // Else, turn it on
             interactionPhase = InteractionPhases.ingame_help;
+            playerInteraction_UI.OpenHintUI();
             GameManager.Instance.tracker.CreateEventExt("ToggleHintsVisibility", (true).ToString());
         }
 

@@ -33,7 +33,8 @@ public class PlayerInteraction_UI
 	public Button stopSimulationButton;
 	public Button submitButton;
 	public Button revealHintsButton;
-	public Button exitButton;
+    public Button revealHintsButtonOverlay;
+    public Button exitButton;
 	public EventTrigger[] rightPanelColors;
 	public HintButton[] hintButtons;
 	public TooltipEvent[] tooltipEvents;
@@ -54,11 +55,24 @@ public class PlayerInteraction_UI
     public Image rightPanelColorLock;
 	public Image topPanelConnectionLock;
 	public UIMeter zoomMeter;
+    public Image hintBackground;
+    public Image hintButton;
 
 	[Header("Prefabs")]
 	public GameObject hint_button_prefab;
 
-	public void OpenUI()
+    public void OpenHintUI()
+    {
+        hintBackground.gameObject.SetActive(true);
+        hintButton.gameObject.SetActive(true);
+    }
+    public void CloseHintUI()
+    {
+        hintBackground.gameObject.SetActive(false);
+        hintButton.gameObject.SetActive(false);
+    }
+
+    public void OpenUI()
 	{
 		draggableElement.gameObject.SetActive(false);
 		UICameraContainer.gameObject.SetActive(true);
